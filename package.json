@@ -1,0 +1,14 @@
+{
+  "name": "node-rest-express-mongo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.7"
+  }
+}
