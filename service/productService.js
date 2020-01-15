@@ -3,7 +3,8 @@ const  Product  = require( '../database/models/productModel');
 module.exports.createProduct = async ( serviceData ) => {
     try {
         let product = new Product({...serviceData});
-        return await product.save();
+        product = await product.save();
+        return product.toObject();
     } catch (error) {
         console.error( error );
         throw error;
