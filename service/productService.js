@@ -23,3 +23,18 @@ module.exports.getAllProducts = async ( serviceData ) => {
         throw error;
     }
 };
+
+module.exports.getProductById = async ( {id} ) => {
+    try {
+        let product = await Product.findById( id );
+        if( product ){
+            product = product.toObject();
+        } else {
+            throw new Error( 'Product not found');
+        }
+        return product;
+    } catch (error) {
+        return null;
+    }
+};
+

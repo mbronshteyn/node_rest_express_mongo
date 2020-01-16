@@ -1,6 +1,6 @@
 const express = require('express');
 
-const {createProduct, getAllProducts} = require('../controller/productController');
+const {createProduct, getAllProducts, getProductById} = require('../controller/productController');
 const joiSchemaValidations = require('../middleware/joiSchemaValidations');
 const productSchema = require('../apiSchema/productSchema');
 
@@ -12,5 +12,8 @@ router.post('/',
 
 router.get('/',
     getAllProducts );
+
+router.get('/:id',
+    getProductById );
 
 module.exports = router;
