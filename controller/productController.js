@@ -1,4 +1,9 @@
-const {createProduct, updateProduct, getAllProducts, getProductById } = require('../service/productService');
+const {
+    createProduct,
+    deleteProductById,
+    updateProduct,
+    getAllProducts,
+    getProductById } = require('../service/productService');
 const {defaultServerResponse} = require('../constants');
 
 module.exports.createProduct = async (req, res) => {
@@ -46,6 +51,24 @@ module.exports.getProductById = async (req, res) => {
         let product = await getProductById( req.params );
         if( product ) {
             response = {...response, status: 200, message: 'Product', body: product};
+        } else {
+            response = {...response, status: 400, message: 'Not Found' };
+        }
+    } catch (error) {
+        console.error(error);
+        response = {...response, message: error.message, status: error.status};
+    }
+
+    res.send(response);
+};
+
+
+module.exports.deleteProductById = async (req, res) => {
+    let response = defaultServerResponse;
+    try {
+        let product = await deleteProductById( req.params );
+        if( product ) {
+            response = {...response, status: 200, message: 'Product Deleted', body: product};
         } else {
             response = {...response, status: 400, message: 'Not Found' };
         }

@@ -49,3 +49,14 @@ module.exports.getProductById = async ({id}) => {
     return product;
 };
 
+module.exports.deleteProductById = async ({id}) => {
+    let product = null;
+    try {
+        product = await Product.findByIdAndDelete(id);
+        if (product) {
+            product = product.toObject();
+        }
+    } catch (error) {
+    }
+    return product;
+};

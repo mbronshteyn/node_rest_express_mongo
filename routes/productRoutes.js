@@ -1,6 +1,6 @@
 const express = require('express');
 
-const {createProduct, updateProduct, getAllProducts, getProductById} = require('../controller/productController');
+const {createProduct, deleteProductById, updateProduct, getAllProducts, getProductById} = require('../controller/productController');
 const joiSchemaValidations = require('../middleware/joiSchemaValidations');
 const productSchema = require('../apiSchema/productSchema');
 
@@ -15,6 +15,9 @@ router.get('/',
 
 router.get('/:id',
     getProductById );
+
+router.delete('/:id',
+    deleteProductById );
 
 router.put('/:id',
     joiSchemaValidations.validateBody( productSchema.updateProductSchema ),
