@@ -10,3 +10,16 @@ module.exports.createProduct = async ( serviceData ) => {
         throw error;
     }
 };
+
+module.exports.getAllProducts = async ( serviceData ) => {
+    try {
+        products = await Product.find({});
+        const formattedProducts = await products.map( product => {
+            return product.toObject();
+        })
+        return formattedProducts;
+    } catch (error) {
+        console.error( error );
+        throw error;
+    }
+};
