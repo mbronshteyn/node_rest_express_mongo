@@ -6,6 +6,73 @@
 	},
 	"item": [
 		{
+			"name": "POST Product",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "310db0de-9ade-485d-b079-5977b8939382",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3bcd2cbd-cdc4-46af-8d72-08ae1dc60cba",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check created price\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.body.price).to.eql( pm.globals.get(\"price\") );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"name\": \"casual shoe\",\n\t\"brand\": \"Nike\",\n\t\"price\": {{price}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4002/api/v1/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4002",
+					"path": [
+						"api",
+						"v1",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET",
 			"request": {
 				"method": "GET",
@@ -107,43 +174,28 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "919815b6-87e9-42e0-bc79-324a5df25179",
+				"type": "text/javascript",
+				"exec": [
+					"pm.globals.set(\"price\", 100 );"
+				]
+			}
 		},
 		{
-			"name": "POST Product",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \n\t\"name\": \"casual shoe\",\n\t\"brand\": \"Nike\",\n\t\"price\": 100\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:4002/api/v1/product",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "4002",
-					"path": [
-						"api",
-						"v1",
-						"product"
-					]
-				}
-			},
-			"response": []
+			"listen": "test",
+			"script": {
+				"id": "9b70b09f-d307-47fd-af63-225df4b342ba",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"protocolProfileBehavior": {}
