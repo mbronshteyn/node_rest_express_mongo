@@ -33,6 +33,36 @@ You should see the response from Newman.  If there are tests defined in Postman 
 
 Import Postman collection provided with the project.
 
+### testing with Newman
+
+Postman allows to export collection as json file.  There is one already in `postman` directory.
+
+[ Newman ]( https://learning.getpostman.com/docs/postman/collection-runs/command-line-integration-with-newman/ ) has already been installed with npm
+and will be updated after `npm install`.
+
+Postman allows to add tests to verify the response body.  There is one added to POST request.
+
+```javascript 1.8
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Check created price", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.body.price).to.eql( pm.globals.get("price") );
+});
+```
+
+When you run newman command line, you will have the results of the tests:
+```text
+→ POST Product
+  POST http://localhost:4002/api/v1/product [200 OK, 467B, 99ms]
+  ✓  Status code is 200
+  ✓  Check created price
+
+```
+
+
 ### MongoDB Database Client
 [MongoDB database client Robo 3T](https://www.robomongo.org/)
 
